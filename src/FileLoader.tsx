@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { Bars, MutatingDots } from "react-loader-spinner";
 import { fileAtom, imgAtom } from "./atoms";
 import { useAsyncEffect } from "./hooks";
+import { blobToBase64 } from "./util";
 
 type Status = "none" | "loading" | "done";
 
@@ -34,7 +35,7 @@ export default function FileLoader() {
 
     setTotalStatus("done");
 
-    setImg(image);
+    setImg(await blobToBase64(image));
   }, [file]);
 
   if (totalStatus === "none") return;

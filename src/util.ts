@@ -1,3 +1,5 @@
+import p5 from "p5";
+
 /**
  * Select file(s).
  * @param {String} contentType The content type of files you wish to select. For instance, use "image/*" to select all types of images.
@@ -27,4 +29,56 @@ export function selectFile(
 
     input.click();
   });
+}
+
+export async function blobToBase64(blob: Blob): Promise<string> {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result! as string);
+    reader.readAsDataURL(blob);
+  });
+}
+
+export async function getImageDimensions(src: string): Promise<number[]> {
+  return new Promise(function (resolve) {
+    if (!src) {
+      resolve([-1 - 1]);
+      return;
+    }
+
+    const i = new Image();
+    i.onload = function () {
+      resolve([i.naturalWidth, i.naturalHeight]);
+    };
+    i.style.display = "none";
+    i.src = src;
+  });
+}
+
+export function p5ImageToBase64(img: p5.Image) {
+  // @ts-expect-error P5.js does not document this feature
+  // images do have an internal canvas
+  // @see https://github.com/processing/p5.js/issues/2326#issuecomment-340965418
+  return img.canvas.toDataUrl();
+}
+
+/**
+ * Conserve aspect ratio of the original region. Useful when shrinking/enlarging
+ * images to fit into a certain area.
+ *
+ * @param {Number} srcWidth width of source image
+ * @param {Number} srcHeight height of source image
+ * @param {Number} maxWidth maximum available width
+ * @param {Number} maxHeight maximum available height
+ * @return {Object} { width, height }
+ */
+export function calculateAspectRatioFit(
+  srcWidth: number,
+  srcHeight: Number,
+  maxWidth: number,
+  maxHeight: number
+) {
+  var ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
+
+  return { width: srcWidth * ratio, height: srcHeight * ratio };
 }

@@ -1,5 +1,6 @@
 import FileDrop from "./FileDrop";
 import FileLoader from "./FileLoader";
+import SketchSplitter from "./SketchSplitter";
 
 function App() {
   return (
@@ -11,6 +12,8 @@ function App() {
       <div className="flex flex-col gap-2">
         <FileDrop />
         <FileLoader />
+
+        <SketchSplitter />
       </div>
     </main>
   );

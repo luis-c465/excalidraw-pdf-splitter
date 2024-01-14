@@ -2,9 +2,10 @@ import { exportToBlob, loadFromBlob } from "@excalidraw/excalidraw";
 import { IconFileUpload } from "@tabler/icons-react";
 import clsx from "clsx/lite";
 import { useSetAtom } from "jotai";
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import { useDropzone, type DropzoneOptions } from "react-dropzone";
 import { fileAtom } from "./atoms";
+import { blobToBase64 } from "./util";
 
 const FileDrop: React.FC = () => {
   const setFileAtom = useSetAtom(fileAtom);
@@ -16,19 +17,14 @@ const FileDrop: React.FC = () => {
       const [file] = acceptedFiles;
       setFileAtom(file);
 
-      console.time("getting scene");
       const scene = await loadFromBlob(file, null, null);
-      console.timeEnd("getting scene");
-      console.time("getting image");
       const image = await exportToBlob({
         ...scene,
         exportPadding: 5,
         quality: 1,
       });
-      console.timeEnd("getting image");
-      console.log("done");
-      const url = URL.createObjectURL(image);
-      console.log(url);
+
+      const url = await blobToBase64(image);
     },
     []
   );
