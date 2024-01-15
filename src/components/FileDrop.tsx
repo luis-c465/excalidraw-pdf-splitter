@@ -4,8 +4,8 @@ import clsx from "clsx/lite";
 import { useSetAtom } from "jotai";
 import React, { useCallback } from "react";
 import { useDropzone, type DropzoneOptions } from "react-dropzone";
-import { fileAtom } from "./atoms";
-import { blobToBase64 } from "./util";
+import { fileAtom } from "../atoms";
+import { blobToBase64 } from "../util";
 
 const FileDrop: React.FC = () => {
   const setFileAtom = useSetAtom(fileAtom);

@@ -1,27 +1,23 @@
+import { Image } from "image-js";
 import { atom } from "jotai";
-import type p5 from "p5";
-import { getImageDimensions } from "./util";
+
+export const IMAGE_WIDTH = 800;
 
 export const fileAtom = atom<File | null>(null);
-export const imgAtom = atom<string | null>(null);
-export const splitImagesAtom = atom<p5.Image[]>([]);
-export const splitBase64ImagesAtom = atom<string[]>((get) => {
-  const images = get(splitImagesAtom);
+export const sourceImageAtom = atom<Image | null>(null);
 
-  return images;
-});
+export const resizedImageAtom = atom<[Image | null, number | null]>((get) => {
+  const sourceImage = get(sourceImageAtom);
+  if (!sourceImage) return [null, -1];
 
-export const p5WindowDimsAtom = atom(async (get) => {
-  const url = get(imgAtom)!;
-  let [width, height] = await getImageDimensions(url);
-  const aspectRatio = width / height;
-  // width
-  const resizeTo = 800;
+  // The resize operation is not done in place
+  // the image is first cloned
+  // @see https://github.com/image-js/image-js/blob/9ab86a86f6c13a9a7d14c62566c1396c3c6f54f4/src/image/transform/resize/resize.js#L49
+  const resizedImage = sourceImage.resize({
+    width: IMAGE_WIDTH,
+    preserveAspectRatio: true,
+  });
 
-  if (height >= width) {
-    width = resizeTo;
-    height = width / aspectRatio;
-  }
-
-  return [width, height];
+  const resizedFactor = sourceImage.width / resizedImage.width;
+  return [resizedImage, resizedFactor];
 });

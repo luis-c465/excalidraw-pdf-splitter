@@ -1,17 +1,17 @@
-import { exportToBlob, loadFromBlob } from "@excalidraw/excalidraw";
+import { exportToCanvas, loadFromBlob } from "@excalidraw/excalidraw";
 import { IconCheck } from "@tabler/icons-react";
+import { Image } from "image-js";
 import { useAtomValue, useSetAtom } from "jotai";
 import React, { useState } from "react";
 import { Bars, MutatingDots } from "react-loader-spinner";
-import { fileAtom, imgAtom } from "./atoms";
-import { useAsyncEffect } from "./hooks";
-import { blobToBase64 } from "./util";
+import { fileAtom, sourceImageAtom } from "../atoms";
+import { useAsyncEffect } from "../hooks";
 
 type Status = "none" | "loading" | "done";
 
 export default function FileLoader() {
   const file = useAtomValue(fileAtom);
-  const setImg = useSetAtom(imgAtom);
+  const setSourceImage = useSetAtom(sourceImageAtom);
 
   const [totalStatus, setTotalStatus] = useState<Status>("none");
   const [sceneStatus, setSceneStatus] = useState<Status>("none");
@@ -26,16 +26,16 @@ export default function FileLoader() {
     setSceneStatus("done");
 
     setImgStatus("loading");
-    const image = await exportToBlob({
+    const canvas = await exportToCanvas({
       ...scene,
       exportPadding: 5,
-      quality: 1,
     });
+    const image = Image.fromCanvas(canvas);
+    setSourceImage(image);
+
     setImgStatus("done");
 
     setTotalStatus("done");
-
-    setImg(await blobToBase64(image));
   }, [file]);
 
   if (totalStatus === "none") return;
