@@ -34,13 +34,13 @@ export function drawVerticalLine(canvas: HTMLCanvasElement, x: number) {
   ctx.stroke();
 }
 
-export function drawSelection(canvas: HTMLCanvasElement, selection: Selection) {
-  const ctx = gctx(canvas);
-  ctx.beginPath();
-  ctx.moveTo(x, canvas.height);
-  ctx.lineTo(x, 0);
-  ctx.stroke();
-}
+// export function drawSelection(canvas: HTMLCanvasElement, selection: Selection) {
+//   const ctx = gctx(canvas);
+//   ctx.beginPath();
+//   ctx.moveTo(x, canvas.height);
+//   ctx.lineTo(x, 0);
+//   ctx.stroke();
+// }
 
 export function gctx(canvas: HTMLCanvasElement) {
   return canvas.getContext("2d")!;

@@ -5,6 +5,7 @@ import FileLoader from "@/components/FileLoader";
 import { exportToCanvas, loadFromBlob } from "@excalidraw/excalidraw";
 import { Image } from "image-js";
 import { useAtomValue, useSetAtom } from "jotai";
+import SplitSketches from "./components/SplitSketches";
 import SplitterOptions from "./components/SplitterOptions";
 import { useAsyncEffect } from "./hooks";
 
@@ -65,9 +66,9 @@ function SketchSplitter() {
       </h1>
       <SplitterOptions />
 
-      <div className="flex gap-2 items-center">
+      <div className="flex flex-row gap-2 justify-center items-start">
         <CanvasSketchSplitter />
-        {/* <SplitSketches /> */}
+        <SplitSketches />
       </div>
     </div>
   );

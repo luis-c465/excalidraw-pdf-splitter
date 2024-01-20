@@ -1,11 +1,26 @@
+import { splitImagesBlobUrlsAtom } from "@/atoms";
+import { useAtomValue } from "jotai";
+import { splitAtom } from "jotai/utils";
+import type { Atom } from "jotai/vanilla";
+import { Suspense } from "react";
+
+const splitImagesSplitAtom = splitAtom(splitImagesBlobUrlsAtom);
 export default function SplitSketches() {
+  const splitImages = useAtomValue(splitImagesSplitAtom);
+
   return (
     <div className="flex gap-2 flex-wrap">
-      {/* {splitBase64Images.map(ImagePreview)} */}
+      {splitImages.map((img, i) => (
+        <Suspense fallback="Loading...">
+          <ImagePreview atom={img} key={i} />
+        </Suspense>
+      ))}
     </div>
   );
 }
 
-function ImagePreview(src: string) {
+function ImagePreview({ atom }: { atom: Atom<Promise<string>> }) {
+  const src = useAtomValue(atom);
+
   return <img src={src} alt="Split image" className="rounded-lg" />;
 }

@@ -1,6 +1,7 @@
 import { Image } from "image-js";
 import { atom } from "jotai";
 import type { Selection } from "./components/CanvasSketchSplitter";
+import { cropImage } from "./image";
 
 export const IMAGE_WIDTH = 800;
 
@@ -40,5 +41,27 @@ export const imageSplitOptions = [
   "selection",
 ] as const;
 export type ImageSplitOption = (typeof imageSplitOptions)[number];
-export const imageSplitOptionsAtom = atom<ImageSplitOption>("selection");
+export const imageSplitOptionsAtom = atom<ImageSplitOption>("horizontally");
 export const canvasSplitsAtom = atom<Selection[]>([]);
+
+export const splitImagesAtom = atom<Image[]>((get) => {
+  const sourceImage = get(sourceImageAtom);
+  const canvasSplits = get(canvasSplitsAtom);
+  const [_, resizedFactor] = get(resizedImageAtom);
+
+  if (!sourceImage || !canvasSplits || !resizedFactor) return [];
+
+  return canvasSplits.map((selection) =>
+    cropImage(selection, sourceImage, resizedFactor)
+  );
+});
+
+export const splitImagesBlobUrlsAtom = atom((get) => {
+  const splitImages = get(splitImagesAtom);
+
+  return splitImages.map(async (img) => {
+    const blob = await img.toBlob();
+    const url = URL.createObjectURL(blob);
+    return url;
+  });
+});
