@@ -74,11 +74,18 @@ export function p5ImageToBase64(img: p5.Image) {
  */
 export function calculateAspectRatioFit(
   srcWidth: number,
-  srcHeight: Number,
+  srcHeight: number,
   maxWidth: number,
   maxHeight: number
 ) {
   var ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
 
   return { width: srcWidth * ratio, height: srcHeight * ratio };
+}
+
+export function toTitleCase(str: string) {
+  return str.replace(
+    /\w\S*/g,
+    (txt) => txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase()
+  );
 }

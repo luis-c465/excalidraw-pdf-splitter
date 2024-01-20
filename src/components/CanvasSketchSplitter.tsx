@@ -1,70 +1,92 @@
-import { useAtomValue } from "jotai";
-import type { MouseEvent, MouseEventHandler } from "react";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { IMAGE_WIDTH, resizedImageAtom } from "../atoms";
+import {
+  IMAGE_WIDTH,
+  canvasSplitsAtom,
+  imageSplitOptionsAtom,
+  resizedImageData as resizedImageDataAtom,
+} from "@/atoms";
+import { drawImage } from "@/canvas";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { useContext, useEffect } from "react";
+import CanvasWithContext, {
+  CanvasContextGeneral,
+  CanvasContextMouse,
+} from "./CanvasWithContext";
 
-type Context = CanvasRenderingContext2D;
+export type Selection = [[number, number], [number, number]];
 export default function CanvasSketchSplitter() {
-  const [resizedImage] = useAtomValue(resizedImageAtom);
-  console.log(resizedImage);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [context, setContext] = useState<Context | null>(null);
-  const [[mouseX, mouseY], setMousePos] = useState<number[]>([0, 0]);
-
-  const imageData = useMemo(
-    () =>
-      resizedImage &&
-      new ImageData(
-        resizedImage.getRGBAData({ clamped: true }) as any,
-        resizedImage.width,
-        resizedImage.height
-      ),
-    [resizedImage]
+  return (
+    <CanvasWithContext>
+      <CanvasSelections />
+      <DrawResizedImage />
+    </CanvasWithContext>
   );
+}
 
-  // On canvas mount
+function DrawResizedImage() {
+  const [imageData] = useAtom(resizedImageDataAtom);
+  const { ref } = useContext(CanvasContextGeneral);
+
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas || !resizedImage) return;
+    if (!imageData) return;
 
-    const context = canvas.getContext("2d");
-    if (!context || !imageData) return;
+    drawImage(ref, imageData);
+    console.log("bruh");
+  }, [imageData]);
 
-    setContext(context);
-    drawImage(canvas, imageData);
-  }, [canvasRef, resizedImage]);
-
-  const onMouseMove = useCallback<MouseEventHandler<HTMLCanvasElement>>((e) => {
-    if (!context || !canvasRef.current || !imageData) return;
-
-    drawImage(canvasRef.current, imageData);
-    const [x, y] = toCanvasPosition(canvasRef.current, e);
-    console.log(y);
-
-    context.beginPath();
-    context.moveTo(0, y);
-    context.lineTo(IMAGE_WIDTH, y);
-    context.stroke();
-  }, []);
-
-  return <canvas ref={canvasRef} onMouseMove={onMouseMove} />;
+  return null;
 }
 
-function drawImage(canvas: HTMLCanvasElement, imageData: ImageData) {
-  const context = canvas.getContext("2d")!;
-  canvas.width = imageData.width;
-  canvas.height = imageData.height;
+function CanvasSelections() {
+  const imageSplit = useAtomValue(imageSplitOptionsAtom);
 
-  context.putImageData(imageData, 0, 0);
+  if (imageSplit === "horizontally") return <HorizontalCanvasSelection />;
+  else if (imageSplit === "vertically") return <VerticalCanvasSelection />;
+  else if (imageSplit === "selection") return <BoxCanvasSelection />;
+  else return null;
 }
 
-function toCanvasPosition(
-  canvas: HTMLCanvasElement,
-  e: MouseEvent<HTMLCanvasElement>
-) {
-  const rect = canvas.getBoundingClientRect();
+function HorizontalCanvasSelection() {
+  const imageData = useAtomValue(resizedImageDataAtom);
+  const setCanvasSplits = useSetAtom(canvasSplitsAtom);
+  const { ref, ctx } = useContext(CanvasContextGeneral);
+  const { mouseX, mouseY, clicked } = useContext(CanvasContextMouse);
 
-  const x = e.clientX - rect.x;
-  const y = e.clientY - rect.y;
-  return [x, y];
+  if (!imageData) return;
+
+  useEffect(() => {
+    drawImage(ref, imageData);
+
+    ctx.beginPath();
+    ctx.moveTo(0, mouseY);
+    ctx.lineTo(IMAGE_WIDTH, mouseY);
+    ctx.stroke();
+  }, [mouseX, mouseY, imageData]);
+
+  useEffect(() => {
+    if (!clicked) return;
+
+    setCanvasSplits((prev) => {
+      const lastSplitEndingY: number =
+        prev.length !== 0 ? prev[prev.length - 1][1][1] : 0;
+
+      const newSplit: Selection = [
+        [0, lastSplitEndingY],
+        [ref.width, mouseY],
+      ];
+
+      const newSplits = [...prev, newSplit];
+      console.log("set splits", newSplits);
+      return newSplits;
+    });
+  }, [clicked, mouseX, mouseY, ref]);
+
+  return null;
+}
+
+function VerticalCanvasSelection() {
+  return null;
+}
+
+function BoxCanvasSelection() {
+  return null;
 }
