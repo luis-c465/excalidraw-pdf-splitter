@@ -4,8 +4,8 @@ import { Image } from "image-js";
 import { useAtomValue, useSetAtom } from "jotai";
 import React, { useState } from "react";
 import { Bars, MutatingDots } from "react-loader-spinner";
-import { fileAtom, sourceImageAtom } from "../atoms";
-import { useAsyncEffect } from "../hooks";
+import { fileAtom, sourceImageAtom } from "../lib/atoms";
+import { useAsyncEffect } from "../lib/hooks";
 
 type Status = "none" | "loading" | "done";
 

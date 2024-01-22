@@ -1,4 +1,4 @@
-import { Context, toCanvasPosition } from "@/canvas";
+import { Context, toCanvasPosition } from "@/lib/canvas";
 import {
   MouseEventHandler,
   createContext,

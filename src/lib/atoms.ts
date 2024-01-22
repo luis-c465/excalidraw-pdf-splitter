@@ -1,6 +1,6 @@
+import type { Selection } from "@/lib/image";
 import { Image } from "image-js";
 import { atom } from "jotai";
-import type { Selection } from "./components/CanvasSketchSplitter";
 import { cropImage } from "./image";
 
 export const IMAGE_WIDTH = 800;

@@ -1,5 +1,5 @@
-import { splitImagesAtom } from "@/atoms";
-import { calculateAspectRatioFit } from "@/util";
+import { splitImagesAtom } from "@/lib/atoms";
+import { calculateAspectRatioFit } from "@/lib/image";
 import { useAtomValue } from "jotai";
 import { RGBAData, jsPDF } from "jspdf";
 import { useMemo } from "react";

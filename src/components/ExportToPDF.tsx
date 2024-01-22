@@ -1,4 +1,4 @@
-import { splitImagesAtom } from "@/atoms";
+import { splitImagesAtom } from "@/lib/atoms";
 import { useAtomValue } from "jotai";
 import { PDFViewer } from "./PdfViewer";
 import {

@@ -2,8 +2,8 @@ import {
   ImageSplitOption,
   imageSplitOptions,
   imageSplitOptionsAtom,
-} from "@/atoms";
-import { toTitleCase } from "@/util";
+} from "@/lib/atoms";
+import { toTitleCase } from "@/lib/string";
 import {
   IconCircleHalf,
   IconCircleHalfVertical,

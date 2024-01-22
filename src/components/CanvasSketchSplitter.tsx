@@ -3,8 +3,9 @@ import {
   canvasSplitsAtom,
   imageSplitOptionsAtom,
   resizedImageData as resizedImageDataAtom,
-} from "@/atoms";
-import { drawImage } from "@/canvas";
+} from "@/lib/atoms";
+import { drawImage } from "@/lib/canvas";
+import type { Selection } from "@/lib/image";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { useContext, useEffect } from "react";
 import CanvasWithContext, {
@@ -12,7 +13,6 @@ import CanvasWithContext, {
   CanvasContextMouse,
 } from "./CanvasWithContext";
 
-export type Selection = [[number, number], [number, number]];
 export default function CanvasSketchSplitter() {
   return (
     <CanvasWithContext>

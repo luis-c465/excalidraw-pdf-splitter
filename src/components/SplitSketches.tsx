@@ -1,4 +1,4 @@
-import { splitImagesBlobUrlsAtom } from "@/atoms";
+import { splitImagesBlobUrlsAtom } from "@/lib/atoms";
 import { useAtomValue } from "jotai";
 import { splitAtom } from "jotai/utils";
 import type { Atom } from "jotai/vanilla";

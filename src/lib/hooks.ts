@@ -1,6 +1,6 @@
+import type { Selection } from "@/lib/image";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { gctx } from "./canvas";
-import { Selection } from "./components/CanvasSketchSplitter";
 
 /**
  * Hook to run an async effect on mount and another on unmount.

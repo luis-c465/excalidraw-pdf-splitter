@@ -1,14 +1,13 @@
-import { resizedImageAtom, sourceImageAtom } from "@/atoms";
 import CanvasSketchSplitter from "@/components/CanvasSketchSplitter";
 import FileDrop from "@/components/FileDrop";
 import FileLoader from "@/components/FileLoader";
-import { exportToCanvas, loadFromBlob } from "@excalidraw/excalidraw";
-import { Image } from "image-js";
+import { resizedImageAtom, sourceImageAtom } from "@/lib/atoms";
 import { useAtomValue, useSetAtom } from "jotai";
 import { DynamicExportToPDF } from "./components/ExportToPDF";
 import SplitSketches from "./components/SplitSketches";
 import SplitterOptions from "./components/SplitterOptions";
-import { useAsyncEffect } from "./hooks";
+import { useAsyncEffect } from "./lib/hooks";
+import { excalidrawFileToImage } from "@/lib/image";
 
 export default function App() {
   const setSourceImage = useSetAtom(sourceImageAtom);
@@ -17,12 +16,7 @@ export default function App() {
   useAsyncEffect(async () => {
     const req = await fetch("pain.excalidraw");
     const file = await req.blob();
-    const scene = await loadFromBlob(file, null, null);
-    const canvas = await exportToCanvas({
-      ...scene,
-      exportPadding: 5,
-    });
-    const image = Image.fromCanvas(canvas);
+    const image = await excalidrawFileToImage(file);
     setSourceImage(image);
 
     return null;
