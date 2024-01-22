@@ -66,11 +66,10 @@ export function p5ImageToBase64(img: p5.Image) {
  * Conserve aspect ratio of the original region. Useful when shrinking/enlarging
  * images to fit into a certain area.
  *
- * @param {Number} srcWidth width of source image
- * @param {Number} srcHeight height of source image
- * @param {Number} maxWidth maximum available width
- * @param {Number} maxHeight maximum available height
- * @return {Object} { width, height }
+ * @param srcWidth width of source image
+ * @param srcHeight height of source image
+ * @param maxWidth maximum available width
+ * @param maxHeight maximum available height
  */
 export function calculateAspectRatioFit(
   srcWidth: number,
@@ -78,7 +77,7 @@ export function calculateAspectRatioFit(
   maxWidth: number,
   maxHeight: number
 ) {
-  var ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
+  const ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
 
   return { width: srcWidth * ratio, height: srcHeight * ratio };
 }

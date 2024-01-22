@@ -5,6 +5,7 @@ import FileLoader from "@/components/FileLoader";
 import { exportToCanvas, loadFromBlob } from "@excalidraw/excalidraw";
 import { Image } from "image-js";
 import { useAtomValue, useSetAtom } from "jotai";
+import { DynamicExportToPDF } from "./components/ExportToPDF";
 import SplitSketches from "./components/SplitSketches";
 import SplitterOptions from "./components/SplitterOptions";
 import { useAsyncEffect } from "./hooks";
@@ -31,6 +32,8 @@ export default function App() {
     <main className="flex flex-col gap-3 items-center">
       <header>
         <h1>Excalidraw to PDF tool</h1>
+
+        <DynamicExportToPDF />
       </header>
 
       <div className="flex flex-col gap-2">

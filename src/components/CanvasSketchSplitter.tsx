@@ -30,7 +30,6 @@ function DrawResizedImage() {
     if (!imageData) return;
 
     drawImage(ref, imageData);
-    console.log("bruh");
   }, [imageData]);
 
   return null;
@@ -76,7 +75,6 @@ function HorizontalCanvasSelection() {
       ];
 
       const newSplits = [...prev, newSplit];
-      console.log("set splits", newSplits);
       return newSplits;
     });
   }, [clicked, mouseX, mouseY, ref]);
