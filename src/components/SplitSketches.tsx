@@ -11,8 +11,8 @@ export default function SplitSketches() {
   return (
     <div className="flex gap-2 flex-wrap">
       {splitImages.map((img, i) => (
-        <Suspense fallback="Loading...">
-          <ImagePreview atom={img} key={i} />
+        <Suspense fallback="Loading..." key={i}>
+          <ImagePreview atom={img} />
         </Suspense>
       ))}
     </div>

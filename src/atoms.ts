@@ -39,6 +39,7 @@ export const imageSplitOptions = [
   "horizontally",
   "vertically",
   "selection",
+  "entire sketch",
 ] as const;
 export type ImageSplitOption = (typeof imageSplitOptions)[number];
 export const imageSplitOptionsAtom = atom<ImageSplitOption>("horizontally");

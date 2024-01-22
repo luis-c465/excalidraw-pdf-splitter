@@ -42,6 +42,7 @@ function CanvasSelections() {
   if (imageSplit === "horizontally") return <HorizontalCanvasSelection />;
   else if (imageSplit === "vertically") return <VerticalCanvasSelection />;
   else if (imageSplit === "selection") return <BoxCanvasSelection />;
+  else if (imageSplit === "entire sketch") return <EntireSketchSelection />;
   else return null;
 }
 
@@ -88,5 +89,20 @@ function VerticalCanvasSelection() {
 }
 
 function BoxCanvasSelection() {
+  return null;
+}
+
+function EntireSketchSelection() {
+  const setCanvasSplits = useSetAtom(canvasSplitsAtom);
+  const { ref } = useContext(CanvasContextGeneral);
+  useEffect(() => {
+    setCanvasSplits([
+      [
+        [0, 0],
+        [ref.width - 1, ref.height - 1],
+      ],
+    ]);
+  }, []);
+
   return null;
 }

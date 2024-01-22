@@ -11,15 +11,20 @@
   },
   "dependencies": {
     "@excalidraw/excalidraw": "^0.17.2",
+    "@radix-ui/react-dialog": "^1.0.5",
     "@tabler/icons-react": "^2.45.0",
+    "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "image-js": "^0.35.5",
     "jotai": "^2.6.1",
     "lodash-es": "^4.17.21",
+    "lucide-react": "^0.312.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
     "react-loader-spinner": "^6.1.6",
+    "tailwind-merge": "^2.2.0",
+    "tailwindcss-animate": "^1.0.7",
     "vite-tsconfig-paths": "^4.2.3"
   },
   "devDependencies": {

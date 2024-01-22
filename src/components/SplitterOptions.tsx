@@ -7,6 +7,7 @@ import { toTitleCase } from "@/util";
 import {
   IconCircleHalf,
   IconCircleHalfVertical,
+  IconFileDots,
   IconSelectAll,
   TablerIconsProps,
 } from "@tabler/icons-react";
@@ -17,6 +18,7 @@ const IconMapping: Record<ImageSplitOption, IconComponent> = {
   horizontally: IconCircleHalf,
   vertically: IconCircleHalfVertical,
   selection: IconSelectAll,
+  "entire sketch": IconFileDots,
 };
 
 export default function SplitterOptions() {
