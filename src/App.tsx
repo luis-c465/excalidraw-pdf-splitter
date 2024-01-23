@@ -2,12 +2,12 @@ import CanvasSketchSplitter from "@/components/CanvasSketchSplitter";
 import FileDrop from "@/components/FileDrop";
 import FileLoader from "@/components/FileLoader";
 import { resizedImageAtom, sourceImageAtom } from "@/lib/atoms";
+import { excalidrawFileToImage } from "@/lib/excalidraw";
 import { useAtomValue, useSetAtom } from "jotai";
 import { DynamicExportToPDF } from "./components/ExportToPDF";
 import SplitSketches from "./components/SplitSketches";
 import SplitterOptions from "./components/SplitterOptions";
 import { useAsyncEffect } from "./lib/hooks";
-import { excalidrawFileToImage } from "@/lib/image";
 
 export default function App() {
   const setSourceImage = useSetAtom(sourceImageAtom);

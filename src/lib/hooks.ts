@@ -87,11 +87,11 @@ export function useAsyncEffect<M>(
   );
 }
 
-export interface UseAsyncEffectResult<R> {
+export type UseAsyncEffectResult<R> = {
   result: R | undefined;
   error: unknown;
   isLoading: boolean;
-}
+};
 
 type MarchingArtsOptions = {
   lineLength: number;

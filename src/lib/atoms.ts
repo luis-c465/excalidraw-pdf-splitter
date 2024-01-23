@@ -1,7 +1,6 @@
-import type { Selection } from "@/lib/image";
 import { Image } from "image-js";
 import { atom } from "jotai";
-import { cropImage } from "./image";
+import { cropImage, type Selection } from "./crop";
 
 export const IMAGE_WIDTH = 800;
 

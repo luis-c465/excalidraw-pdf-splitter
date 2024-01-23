@@ -1,5 +1,5 @@
 import { fileAtom, sourceImageAtom } from "@/lib/atoms";
-import { excalidrawFileToImage } from "@/lib/image";
+import { excalidrawFileToImage } from "@/lib/excalidraw";
 import { IconFileUpload } from "@tabler/icons-react";
 import clsx from "clsx/lite";
 import { useSetAtom } from "jotai";
