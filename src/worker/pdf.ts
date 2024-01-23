@@ -1,5 +1,4 @@
 import { calculateAspectRatioFit } from "@/lib/image";
-import type { Image } from "image-js";
 import { RGBAData, jsPDF } from "jspdf";
 
 export const MAX_IMG_WIDTH = 200;
