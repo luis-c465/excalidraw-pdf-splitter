@@ -1,6 +1,7 @@
 import { Image } from "image-js";
 import { memoize } from "lodash-es";
-export type Selection = [[number, number], [number, number]];
+export type Selection = [Coordinate, Coordinate];
+export type Coordinate = [number, number];
 
 export const cropImage = memoize(
   (selection: Selection, image: Image, resizedFactor: number) => {

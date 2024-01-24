@@ -1,6 +1,4 @@
-import type { Selection } from "@/lib/image";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { gctx } from "./canvas";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 /**
  * Hook to run an async effect on mount and another on unmount.
@@ -92,59 +90,3 @@ export type UseAsyncEffectResult<R> = {
   error: unknown;
   isLoading: boolean;
 };
-
-type MarchingArtsOptions = {
-  lineLength: number;
-  lineGap: number;
-  speed: number;
-  forward: boolean;
-};
-export function useCanvasMarchingAnts(
-  canvas: React.RefObject<HTMLCanvasElement>,
-  selection: Selection,
-  { lineGap, lineLength, speed, forward }: MarchingArtsOptions = {
-    lineGap: 5,
-    lineLength: 5,
-    speed: 50,
-    forward: true,
-  }
-) {
-  const [offset, setOffset] = useState(3);
-  const march = useCallback(() => {
-    if (forward) {
-      setOffset(offset - 1);
-      if (offset < 1) {
-        setOffset(10);
-      }
-    } else {
-      setOffset(offset + 1);
-      if (offset > 10) {
-        setOffset(0);
-      }
-    }
-    if (!canvas.current || !selection) return;
-
-    const can = canvas.current;
-
-    const ctx = gctx(canvas.current);
-    ctx.clearRect(0, 0, can.width, can.height);
-    ctx.beginPath();
-
-    ctx.setLineDash([lineLength, lineGap]);
-    ctx.lineDashOffset = offset;
-    ctx.strokeRect(
-      selection[0][0],
-      selection[0][1],
-      selection[1][0],
-      selection[1][1]
-    );
-    ctx.stroke();
-
-    return setTimeout(march, speed);
-  }, [canvas.current, offset, lineLength, lineGap, speed]);
-
-  useEffect(() => {
-    const id = march();
-    return () => clearTimeout(id);
-  }, [march]);
-}
