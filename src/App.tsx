@@ -7,6 +7,7 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { DynamicExportToPDF } from "./components/ExportToPDF";
 import SplitSketches from "./components/SplitSketches";
 import SplitterOptions from "./components/SplitterOptions";
+import { Toaster } from "./components/ui/sonner";
 import { useAsyncEffect } from "./lib/hooks";
 
 export default function App() {
@@ -23,19 +24,22 @@ export default function App() {
   });
 
   return (
-    <main className="flex flex-col gap-3 items-center">
-      <header className="flex flex-row gap-5 items-center">
-        <h1>Excalidraw to PDF tool</h1>
+    <>
+      <main className="flex flex-col gap-3 items-center">
+        <header className="flex flex-row gap-5 items-center">
+          <h1>Excalidraw to PDF tool</h1>
 
-        <DynamicExportToPDF />
-      </header>
+          <DynamicExportToPDF />
+        </header>
 
-      <div className="flex flex-col gap-2">
-        <FileUploader />
+        <div className="flex flex-col gap-2">
+          <FileUploader />
 
-        <SketchSplitter />
-      </div>
-    </main>
+          <SketchSplitter />
+        </div>
+      </main>
+      <Toaster />
+    </>
   );
 }
 

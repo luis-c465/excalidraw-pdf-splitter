@@ -4,10 +4,11 @@ import {
   imageSplitOptionsAtom,
   resizedImageData as resizedImageDataAtom,
 } from "@/lib/atoms";
-import { drawImage } from "@/lib/canvas";
-import type { Selection } from "@/lib/image";
+import { drawImage, drawSelection } from "@/lib/canvas";
+import type { Selection } from "@/lib/crop";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { useContext, useEffect } from "react";
+import { toast } from "sonner";
 import CanvasWithContext, {
   CanvasContextGeneral,
   CanvasContextMouse,
@@ -23,14 +24,17 @@ export default function CanvasSketchSplitter() {
 }
 
 function DrawResizedImage() {
-  const [imageData] = useAtom(resizedImageDataAtom);
+  const imageData = useAtomValue(resizedImageDataAtom);
+  const imageSplitOption = useAtomValue(imageSplitOptionsAtom);
+  const setImageSplits = useSetAtom(canvasSplitsAtom);
   const { ref } = useContext(CanvasContextGeneral);
 
   useEffect(() => {
     if (!imageData) return;
 
     drawImage(ref, imageData);
-  }, [imageData]);
+    setImageSplits([]);
+  }, [imageData, imageSplitOption]);
 
   return null;
 }
@@ -47,7 +51,7 @@ function CanvasSelections() {
 
 function HorizontalCanvasSelection() {
   const imageData = useAtomValue(resizedImageDataAtom);
-  const setCanvasSplits = useSetAtom(canvasSplitsAtom);
+  const [canvasSplits, setCanvasSplits] = useAtom(canvasSplitsAtom);
   const { ref, ctx } = useContext(CanvasContextGeneral);
   const { mouseX, mouseY, clicked } = useContext(CanvasContextMouse);
 
@@ -56,15 +60,28 @@ function HorizontalCanvasSelection() {
   useEffect(() => {
     drawImage(ref, imageData);
 
+    for (let split of canvasSplits) {
+      drawSelection(ctx, split);
+    }
+
     ctx.beginPath();
     ctx.moveTo(0, mouseY);
     ctx.lineTo(IMAGE_WIDTH, mouseY);
     ctx.stroke();
-  }, [mouseX, mouseY, imageData]);
+  }, [mouseX, mouseY, imageData, canvasSplits]);
 
   useEffect(() => {
     if (!clicked) return;
 
+    const lastSplitEndingY: number =
+      canvasSplits.length !== 0
+        ? canvasSplits[canvasSplits.length - 1][1][1]
+        : 0;
+
+    if (lastSplitEndingY >= mouseY) {
+      toast("Cannot ");
+      return;
+    }
     setCanvasSplits((prev) => {
       const lastSplitEndingY: number =
         prev.length !== 0 ? prev[prev.length - 1][1][1] : 0;
@@ -83,6 +100,44 @@ function HorizontalCanvasSelection() {
 }
 
 function VerticalCanvasSelection() {
+  const imageData = useAtomValue(resizedImageDataAtom);
+  const [canvasSplits, setCanvasSplits] = useAtom(canvasSplitsAtom);
+  const { ref, ctx } = useContext(CanvasContextGeneral);
+  const { mouseX, mouseY, clicked } = useContext(CanvasContextMouse);
+
+  if (!imageData) return;
+
+  useEffect(() => {
+    drawImage(ref, imageData);
+
+    ctx.beginPath();
+    ctx.moveTo(mouseX, 0);
+    ctx.lineTo(mouseX, ref.height);
+    ctx.stroke();
+  }, [mouseX, mouseY, imageData]);
+
+  useEffect(() => {
+    if (!clicked) return;
+
+    const lastSplitEndingY: number =
+      canvasSplits.length !== 0
+        ? canvasSplits[canvasSplits.length - 1][1][1]
+        : 0;
+
+    setCanvasSplits((prev) => {
+      const lastSplitEndingY: number =
+        prev.length !== 0 ? prev[prev.length - 1][1][1] : 0;
+
+      const newSplit: Selection = [
+        [0, lastSplitEndingY],
+        [ref.width, mouseY],
+      ];
+
+      const newSplits = [...prev, newSplit];
+      return newSplits;
+    });
+  }, [clicked, mouseX, mouseY, ref, canvasSplits]);
+
   return null;
 }
 

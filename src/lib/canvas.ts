@@ -1,3 +1,4 @@
+import type { Selection } from "./crop";
 export type Context = CanvasRenderingContext2D;
 export function drawImage(canvas: HTMLCanvasElement, imageData: ImageData) {
   const context = canvas.getContext("2d")!;
@@ -44,4 +45,18 @@ export function drawVerticalLine(canvas: HTMLCanvasElement, x: number) {
 
 export function gctx(canvas: HTMLCanvasElement) {
   return canvas.getContext("2d")!;
+}
+
+export function drawSelection(ctx: Context, s: Selection) {
+  ctx.globalAlpha = 0.2;
+  const [[x1, y1], [x2, y2]] = s;
+  const width = x2 - x1;
+  const height = y2 - y1;
+  console.log({ x1, y1, x2, y2, width, height });
+  ctx.beginPath();
+  ctx.rect(x1, y1, width, height);
+  ctx.stroke();
+  ctx.fill();
+  ctx.closePath();
+  ctx.globalAlpha = 1.0;
 }
