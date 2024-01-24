@@ -24,7 +24,7 @@ export default function App() {
 
   return (
     <main className="flex flex-col gap-3 items-center">
-      <header>
+      <header className="flex flex-row gap-5 items-center">
         <h1>Excalidraw to PDF tool</h1>
 
         <DynamicExportToPDF />

@@ -1,6 +1,7 @@
 import { splitImagesAtom } from "@/lib/atoms";
 import { useAtomValue } from "jotai";
 import { PDFViewer } from "./PdfViewer";
+import { Button } from "./ui/button";
 import {
   Dialog,
   DialogContent,
@@ -20,7 +21,9 @@ export function DynamicExportToPDF() {
 export function ExportToPDF() {
   return (
     <Dialog>
-      <DialogTrigger>Generate PDF</DialogTrigger>
+      <DialogTrigger asChild>
+        <Button>Generate PDF</Button>
+      </DialogTrigger>
       <PDFDialogContent />
     </Dialog>
   );

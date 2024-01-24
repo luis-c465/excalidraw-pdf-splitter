@@ -16,7 +16,6 @@ function createPDF(imagesData: Arg) {
   const doc = new jsPDF();
 
   imagesData.forEach((imgData, i) => {
-    debugger;
     // On the first iteration do not add a page
     // because the PDF starts out with one page already
     if (i != 0) doc.addPage();
