@@ -4,7 +4,7 @@ import {
   imageSplitOptionsAtom,
   resizedImageData as resizedImageDataAtom,
 } from "@/lib/atoms";
-import { drawImage, drawSelection } from "@/lib/canvas";
+import { drawAllSelections, drawImage } from "@/lib/canvas";
 import type { Selection } from "@/lib/crop";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { useContext, useEffect } from "react";
@@ -59,10 +59,7 @@ function HorizontalCanvasSelection() {
 
   useEffect(() => {
     drawImage(ref, imageData);
-
-    for (let split of canvasSplits) {
-      drawSelection(ctx, split);
-    }
+    drawAllSelections(ctx, canvasSplits);
 
     ctx.beginPath();
     ctx.moveTo(0, mouseY);
@@ -79,21 +76,16 @@ function HorizontalCanvasSelection() {
         : 0;
 
     if (lastSplitEndingY >= mouseY) {
-      toast("Cannot ");
+      toast("Invalid split", {
+        description: "Split would create two overlapping images",
+      });
       return;
     }
-    setCanvasSplits((prev) => {
-      const lastSplitEndingY: number =
-        prev.length !== 0 ? prev[prev.length - 1][1][1] : 0;
-
-      const newSplit: Selection = [
-        [0, lastSplitEndingY],
-        [ref.width, mouseY],
-      ];
-
-      const newSplits = [...prev, newSplit];
-      return newSplits;
-    });
+    const newSplit: Selection = [
+      [0, lastSplitEndingY],
+      [ref.width, mouseY],
+    ];
+    setCanvasSplits((prev) => [...prev, newSplit]);
   }, [clicked, mouseX, mouseY, ref]);
 
   return null;
@@ -109,6 +101,7 @@ function VerticalCanvasSelection() {
 
   useEffect(() => {
     drawImage(ref, imageData);
+    drawAllSelections(ctx, canvasSplits);
 
     ctx.beginPath();
     ctx.moveTo(mouseX, 0);
@@ -119,24 +112,24 @@ function VerticalCanvasSelection() {
   useEffect(() => {
     if (!clicked) return;
 
-    const lastSplitEndingY: number =
+    const lastSplitEndingX: number =
       canvasSplits.length !== 0
-        ? canvasSplits[canvasSplits.length - 1][1][1]
+        ? canvasSplits[canvasSplits.length - 1][1][0]
         : 0;
 
-    setCanvasSplits((prev) => {
-      const lastSplitEndingY: number =
-        prev.length !== 0 ? prev[prev.length - 1][1][1] : 0;
+    if (lastSplitEndingX >= mouseX) {
+      toast("Invalid split", {
+        description: "Split would create two overlapping images",
+      });
+      return;
+    }
 
-      const newSplit: Selection = [
-        [0, lastSplitEndingY],
-        [ref.width, mouseY],
-      ];
-
-      const newSplits = [...prev, newSplit];
-      return newSplits;
-    });
-  }, [clicked, mouseX, mouseY, ref, canvasSplits]);
+    const newSplit: Selection = [
+      [lastSplitEndingX, 0],
+      [mouseX, ref.height - 1],
+    ];
+    setCanvasSplits((prev) => [...prev, newSplit]);
+  }, [clicked, mouseX, mouseY, ref]);
 
   return null;
 }

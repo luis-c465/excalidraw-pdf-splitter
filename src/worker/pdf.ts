@@ -1,8 +1,8 @@
 import { calculateAspectRatioFit } from "@/lib/image";
 import { RGBAData, jsPDF } from "jspdf";
 
-export const MAX_IMG_WIDTH = 200;
-export const MAX_IMG_HEIGHT = 280;
+export const MAX_IMG_WIDTH = 180;
+export const MAX_IMG_HEIGHT = 260;
 
 export type Arg = RGBAData[];
 export type Returns = string;

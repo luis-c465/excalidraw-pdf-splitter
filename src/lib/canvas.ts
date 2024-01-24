@@ -47,16 +47,25 @@ export function gctx(canvas: HTMLCanvasElement) {
   return canvas.getContext("2d")!;
 }
 
-export function drawSelection(ctx: Context, s: Selection) {
-  ctx.globalAlpha = 0.2;
-  const [[x1, y1], [x2, y2]] = s;
-  const width = x2 - x1;
-  const height = y2 - y1;
-  console.log({ x1, y1, x2, y2, width, height });
-  ctx.beginPath();
-  ctx.rect(x1, y1, width, height);
-  ctx.stroke();
-  ctx.fill();
-  ctx.closePath();
-  ctx.globalAlpha = 1.0;
+export function drawAllSelections(ctx: Context, canvasSplits: Selection[]) {
+  for (let i = 0; i < canvasSplits.length; i++) {
+    const split = canvasSplits[i];
+
+    ctx.globalAlpha = 0.2;
+    const [[x1, y1], [x2, y2]] = split;
+    const width = x2 - x1;
+    const height = y2 - y1;
+
+    ctx.beginPath();
+    ctx.lineWidth = 2;
+    ctx.rect(x1, y1, width, height);
+    ctx.stroke();
+    ctx.fill();
+    ctx.stroke;
+    ctx.closePath();
+
+    ctx.globalAlpha = 1.0;
+    ctx.font = "25px sans serif";
+    ctx.fillText(`${i + 1}`, x1 + 25, y1 + 25);
+  }
 }
