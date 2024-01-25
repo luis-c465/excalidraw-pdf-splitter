@@ -1,30 +1,37 @@
-# React + TypeScript + Vite
+# Excalidraw PDF Splitter
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="center" style="background-color: #CCCCCC;">
+  <img src="https://raw.githubusercontent.com/luis-c465/excalidraw-pdf-splitter/main/public/logo.png" alt="Viro Community logo">
+</p>
 
-Currently, two official plugins are available:
+> A simple client side web app to split and transform an exclaidraw file into pages on a pdf
+>
+> [Try it out!](luis-c465.github.io/excalidraw-pdf-splitter/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Local Development
 
-## Expanding the ESLint configuration
+### Requirements
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- [Pnpm 8.14.3](https://pnpm.io/installation)
+- [Node.js 21.5.0](https://nodejs.org/en/download)
 
-- Configure the top-level `parserOptions` property like this:
+### Installing dependencies
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```
+pnpm install
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### Running
+
+After cloning / downloading the repository run to start the development server
+
+```
+pnpm run dev
+```
+
+### Building
+
+```
+pnpm run build
+pnpm run preview
+```
