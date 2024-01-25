@@ -15,4 +15,5 @@ export default defineConfig({
   worker: {
     format: "es",
   },
+  base: "excalidraw-pdf-splitter",
 });

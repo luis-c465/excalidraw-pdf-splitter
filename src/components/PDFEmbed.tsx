@@ -28,7 +28,11 @@ export default function PDFEmbed({ src }: PDFEmbedProps) {
             position: "relative",
           }}
         >
-          <Viewer fileUrl={src} plugins={[defaultLayoutPluginInstance]} />
+          <Viewer
+            fileUrl={src}
+            plugins={[defaultLayoutPluginInstance]}
+            theme="dark"
+          />
         </div>
       </Worker>
     </div>
