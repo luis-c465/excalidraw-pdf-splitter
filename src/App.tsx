@@ -1,4 +1,5 @@
 import { useAtomValue } from "jotai";
+import ConvertAgainBtn from "./components/ConvertAgainBtn";
 import { DynamicExportToPDF } from "./components/ExportToPDF";
 import Header from "./components/Header";
 import HomeScreen from "./components/HomeScreen";
@@ -30,6 +31,7 @@ function DynamicSmallHeader() {
   return (
     <Header big={false}>
       <DynamicExportToPDF />
+      <ConvertAgainBtn />
     </Header>
   );
 }
