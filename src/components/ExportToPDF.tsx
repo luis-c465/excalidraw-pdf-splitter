@@ -22,7 +22,7 @@ export function ExportToPDF() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Generate PDF</Button>
+        <Button>Export PDF</Button>
       </DialogTrigger>
       <PDFDialogContent />
     </Dialog>
@@ -37,8 +37,7 @@ export function PDFDialogContent() {
         <DialogDescription>Export split images as a pdf</DialogDescription>
       </DialogHeader>
 
-      <div className="flex flex-row gap-2">
-        <div>options</div>
+      <div className="flex justify-center w-full">
         <PDFViewer />
       </div>
     </DialogContent>
