@@ -65,7 +65,7 @@ function HorizontalCanvasSelection() {
     ctx.moveTo(0, mouseY);
     ctx.lineTo(IMAGE_WIDTH, mouseY);
     ctx.stroke();
-  }, [mouseX, mouseY, imageData, canvasSplits]);
+  }, [mouseX, mouseY, imageData, canvasSplits.length]);
 
   useEffect(() => {
     if (!clicked) return;
@@ -77,7 +77,8 @@ function HorizontalCanvasSelection() {
 
     if (lastSplitEndingY >= mouseY) {
       toast("Invalid split", {
-        description: "Split would create two overlapping images",
+        description:
+          "Split would create two overlapping images\n If you need finer control, use selection instead",
       });
       return;
     }
@@ -119,7 +120,8 @@ function VerticalCanvasSelection() {
 
     if (lastSplitEndingX >= mouseX) {
       toast("Invalid split", {
-        description: "Split would create two overlapping images",
+        description:
+          "Split would create two overlapping images\n If you need finer control, use selection instead",
       });
       return;
     }
