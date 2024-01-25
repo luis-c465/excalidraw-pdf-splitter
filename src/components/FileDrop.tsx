@@ -31,11 +31,11 @@ const FileDrop: React.FC = () => {
   });
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 items-center">
       <div
         {...getRootProps()}
         className={clsx(
-          "bg-blue-300 rounded-lg text-lg transition-colors flex flex-col gap-4 p-6 w-[400px]",
+          "bg-blue-300 rounded-lg text-lg transition-colors flex flex-col gap-4 p-6 w-[700px] h-[200px]",
           isDragActive && "bg-blue-600"
         )}
       >
@@ -44,8 +44,8 @@ const FileDrop: React.FC = () => {
           <IconFileUpload size={50} />
           <span className="font-bold">Upload the excalidraw file here</span>
         </div>
-        <div className="flex gap-4 text-sm">
-          To get this file Sidebar {">"} Save to disk{" "}
+        <div className="flex gap-4">
+          To get this file, in Excalidraw Sidebar {">"} Save to disk{" "}
         </div>
       </div>
     </div>
