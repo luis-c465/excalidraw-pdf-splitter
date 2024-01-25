@@ -13,6 +13,3 @@ export function workerToPromise<TArg, TRet>(createWorker: { new (): Worker }) {
       };
     });
 }
-type Clean<T extends Record<string, any>> = {
-  [K in keyof T]: T[K] extends Function ? never : T[K];
-};

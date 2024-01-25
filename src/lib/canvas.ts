@@ -8,20 +8,6 @@ export function drawImage(canvas: HTMLCanvasElement, imageData: ImageData) {
   context.putImageData(imageData, 0, 0);
 }
 
-export function toCanvasPosition(
-  canvas: HTMLCanvasElement,
-  e: React.MouseEvent<HTMLCanvasElement>
-) {
-  const can = e.target as HTMLCanvasElement;
-  const rect = can.getBoundingClientRect();
-
-  // const x = e.pageX - rect.x;
-  // const y = e.pageY - rect.y;
-  const x = e.clientX - rect.left; //x position within the element.
-  const y = e.clientY - rect.top;
-  return [x, y];
-}
-
 /**
  * Get the mouse position relative to an html canvas
  * Why is this so difficult
