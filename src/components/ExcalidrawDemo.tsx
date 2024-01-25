@@ -23,6 +23,7 @@ export default function ExcalidrawDemo() {
             ...result.appState,
             zenModeEnabled: true,
             zoom: 0.5 as any,
+            theme: "dark",
           },
           scrollToContent: true,
         }}

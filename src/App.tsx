@@ -1,20 +1,18 @@
-import CanvasSketchSplitter from "@/components/CanvasSketchSplitter";
-import { resizedImageAtom } from "@/lib/atoms";
 import { useAtomValue } from "jotai";
 import { DynamicExportToPDF } from "./components/ExportToPDF";
+import Header from "./components/Header";
 import HomeScreen from "./components/HomeScreen";
-import SplitSketches from "./components/SplitSketches";
-import SplitterOptions from "./components/SplitterOptions";
+import SketchSplitter from "./components/SketchSplitter";
 import { Toaster } from "./components/ui/sonner";
+import { resizedImageAtom } from "./lib/atoms";
 
 export default function App() {
   return (
     <>
       <main className="flex flex-col gap-3 items-center">
-        <Header />
-
         <HomeScreen />
 
+        <DynamicSmallHeader />
         <div className="flex flex-col gap-2">
           <SketchSplitter />
         </div>
@@ -23,33 +21,14 @@ export default function App() {
     </>
   );
 }
-
-function Header() {
-  return (
-    <header className="flex flex-row gap-5 items-center">
-      <h1>Excalidraw to PDF tool</h1>
-
-      <DynamicExportToPDF />
-    </header>
-  );
-}
-
-function SketchSplitter() {
+function DynamicSmallHeader() {
   const [resizedImage] = useAtomValue(resizedImageAtom);
 
-  if (!resizedImage) return;
+  if (!resizedImage) return null;
 
   return (
-    <div className="flex gap-2 flex-col items-center">
-      <h1 className="text-center font-bold text-xl">
-        The drawing has been loaded, split the image into separate parts
-      </h1>
-      <SplitterOptions />
-
-      <div className="flex flex-row gap-2 justify-center items-start">
-        <CanvasSketchSplitter />
-        <SplitSketches />
-      </div>
-    </div>
+    <Header big={false}>
+      <DynamicExportToPDF />
+    </Header>
   );
 }

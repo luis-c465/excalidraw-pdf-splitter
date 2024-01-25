@@ -31,24 +31,26 @@ const FileDrop: React.FC = () => {
   });
 
   return (
-    <div className="flex flex-col gap-2 items-center">
+    <button className="flex flex-col gap-2 items-center">
       <div
         {...getRootProps()}
         className={clsx(
-          "bg-blue-300 rounded-lg text-lg transition-colors flex flex-col gap-4 p-6 w-[700px] h-[200px]",
-          isDragActive && "bg-blue-600"
+          "bg-indigo-400 rounded-lg text-lg transition-colors flex flex-col gap-4 p-6 w-[700px] h-[200px]",
+          isDragActive && "bg-indigo-600"
         )}
       >
         <input {...getInputProps()} />
         <div className="flex gap-4">
           <IconFileUpload size={50} />
-          <span className="font-bold">Upload the excalidraw file here</span>
+          <span className="font-bold">
+            Upload an excalidraw file to get started
+          </span>
         </div>
         <div className="flex gap-4">
           To get this file, in Excalidraw Sidebar {">"} Save to disk{" "}
         </div>
       </div>
-    </div>
+    </button>
   );
 };
 

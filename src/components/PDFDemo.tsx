@@ -26,6 +26,7 @@ export default function PDFDemo() {
           <Viewer
             fileUrl={pdfDemoURL}
             plugins={[defaultLayoutPluginInstance]}
+            theme="dark"
           />
         </div>
       </Worker>

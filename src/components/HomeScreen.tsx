@@ -1,11 +1,8 @@
 import { resizedImageAtom } from "@/lib/atoms";
-import { IconArrowRight } from "@tabler/icons-react";
 import { useAtomValue } from "jotai/react";
-import ExcalidrawDemo from "./ExcalidrawDemo";
-import FileDrop from "./FileDrop";
-import FileLoader from "./FileLoader";
-import PDFDemo from "./PDFDemo";
-import logo from "/logo.png?url";
+import Demo from "./Demo";
+import FileUploader from "./FileUploader";
+import Header from "./Header";
 
 export default function HomeScreen() {
   const [resizedImage] = useAtomValue(resizedImageAtom);
@@ -23,39 +20,17 @@ export default function HomeScreen() {
 
 function TitleBlock() {
   return (
-    <div className="flex flex-col gap-5">
-      <div className="flex gap-2">
-        <img className="text-9xl h-[1em]" src={logo} />
-        <h1 className="inline-block bg-gradient-to-r from-indigo-400 to-red-400 bg-clip-text text-9xl text-transparent">
-          ExcaliDraw to PDF
-        </h1>
-      </div>
+    <div
+      className="flex flex-col gap-5 bg-slate-700 shadow-[0_0_360px_230px_theme(colors.slate.700)]"
+      style={{
+        boxShadow: "0 0 360px 230px red !important",
+      }}
+    >
+      <Header />
 
-      <span className="text-muted-foreground text-xl">
+      <span className="text-muted-foreground text-slate-400 text-2xl">
         Converts sections of an excalidraw file to a PDF
       </span>
     </div>
-  );
-}
-
-function Demo() {
-  return (
-    <div className="flex gap-3 items-center">
-      <ExcalidrawDemo />
-      <IconArrowRight size={50} />
-      <PDFDemo />
-    </div>
-  );
-}
-
-function FileUploader() {
-  const [resizedImage] = useAtomValue(resizedImageAtom);
-  if (resizedImage) return null;
-
-  return (
-    <>
-      <FileDrop />
-      <FileLoader />
-    </>
   );
 }
