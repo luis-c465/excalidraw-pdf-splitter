@@ -7,6 +7,11 @@ body {
   @apply bg-slate-800;
 }
 
+#root,
+body {
+  height: 100vh;
+}
+
 @font-face {
   font-family: lato;
   src: url(/lato.ttf);

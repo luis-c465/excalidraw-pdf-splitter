@@ -20,7 +20,7 @@ export default function SplitSketches() {
   return (
     <div
       className={cn(
-        "flex gap-2 overflow-scroll basis-6/12",
+        "flex gap-2 overflow-x-scroll basis-6/12",
         imageSplitOption === "vertically" && "flex-row",
         imageSplitOption === "selection" && "flex-row flex-wrap",
         imageSplitOption === "horizontally" && "flex-col flex-wrap"

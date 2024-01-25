@@ -47,7 +47,7 @@ const FileDrop: React.FC = () => {
           </span>
         </div>
         <div className="flex gap-4">
-          To get this file, in Excalidraw Sidebar {">"} Save to disk{" "}
+          To get this file go to, Excalidraw Sidebar {">"} Save to disk{" "}
         </div>
       </div>
     </button>
