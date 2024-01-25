@@ -1,4 +1,4 @@
-import { Context, toCanvasPosition } from "@/lib/canvas";
+import { Context, getMousePos } from "@/lib/canvas";
 import {
   MouseEventHandler,
   createContext,
@@ -50,7 +50,7 @@ export default function CanvasWithContext({
     (e) => {
       if (!canvasRef.current) return;
 
-      const [x, y] = toCanvasPosition(canvasRef.current, e);
+      const { x, y } = getMousePos(canvasRef.current, e);
       setMousePos([x, y]);
     },
     [canvasRef.current]
@@ -62,7 +62,7 @@ export default function CanvasWithContext({
 
       setClicked(true);
 
-      const [x, y] = toCanvasPosition(canvasRef.current, e);
+      const { x, y } = getMousePos(canvasRef.current, e);
       setMousePos([x, y]);
 
       setTimeout(() => setClicked(false));
@@ -86,7 +86,12 @@ export default function CanvasWithContext({
           clicked: clicked,
         }}
       >
-        <canvas ref={canvasRef} onMouseMove={onMouseMove} onClick={onClick} />
+        <canvas
+          className="rounded-md overflow-y-scroll basis-6/12"
+          ref={canvasRef}
+          onMouseMove={onMouseMove}
+          onClick={onClick}
+        />
         {!!canvasRef.current && !!context && children}
       </CanvasContextMouse.Provider>
     </CanvasContextGeneral.Provider>

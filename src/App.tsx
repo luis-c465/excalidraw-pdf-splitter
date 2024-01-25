@@ -9,11 +9,11 @@ import { resizedImageAtom } from "./lib/atoms";
 export default function App() {
   return (
     <>
-      <main className="flex flex-col gap-3 items-center">
+      <main className="flex flex-col gap-3 items-center w-full">
         <HomeScreen />
 
         <DynamicSmallHeader />
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 w-full items-start">
           <SketchSplitter />
         </div>
       </main>

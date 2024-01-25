@@ -12,11 +12,35 @@ export function toCanvasPosition(
   canvas: HTMLCanvasElement,
   e: React.MouseEvent<HTMLCanvasElement>
 ) {
-  const rect = canvas.getBoundingClientRect();
+  const can = e.target as HTMLCanvasElement;
+  const rect = can.getBoundingClientRect();
 
-  const x = e.clientX - rect.x;
-  const y = e.clientY - rect.y;
+  // const x = e.pageX - rect.x;
+  // const y = e.pageY - rect.y;
+  const x = e.clientX - rect.left; //x position within the element.
+  const y = e.clientY - rect.top;
   return [x, y];
+}
+
+/**
+ * Get the mouse position relative to an html canvas
+ * Why is this so difficult
+ *
+ * @see https://stackoverflow.com/a/42207257/21763930
+ */
+export function getMousePos(
+  canvas: HTMLCanvasElement,
+  evt: React.MouseEvent<HTMLCanvasElement>
+) {
+  var rect = canvas.getBoundingClientRect();
+  return {
+    x: Math.floor(
+      ((evt.clientX - rect.left) / (rect.right - rect.left)) * canvas.width
+    ),
+    y: Math.floor(
+      ((evt.clientY - rect.top) / (rect.bottom - rect.top)) * canvas.height
+    ),
+  };
 }
 
 export function drawHorizontalLine(canvas: HTMLCanvasElement, y: number) {
