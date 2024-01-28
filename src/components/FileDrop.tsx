@@ -1,5 +1,4 @@
 import { fileAtom, sourceImageAtom } from "@/lib/atoms";
-import { excalidrawFileToImage } from "@/lib/excalidraw";
 import { IconFileUpload } from "@tabler/icons-react";
 import clsx from "clsx/lite";
 import { useSetAtom } from "jotai";
@@ -16,9 +15,6 @@ const FileDrop: React.FC = () => {
 
       const [file] = acceptedFiles;
       setFileAtom(file);
-
-      const image = await excalidrawFileToImage(file);
-      setSourceImage(image);
     },
     []
   );

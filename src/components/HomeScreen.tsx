@@ -1,12 +1,12 @@
-import { resizedImageAtom } from "@/lib/atoms";
+import { resizedImageLoadedAtom } from "@/lib/atoms";
 import { useAtomValue } from "jotai/react";
 import Demo from "./Demo";
 import FileUploader from "./FileUploader";
 import Header from "./Header";
 
 export default function HomeScreen() {
-  const [resizedImage] = useAtomValue(resizedImageAtom);
-  if (resizedImage) return null;
+  const resizedImageLoaded = useAtomValue(resizedImageLoadedAtom);
+  if (resizedImageLoaded) return null;
 
   return (
     <div className="flex flex-col gap-5">

@@ -15,8 +15,8 @@ import { useAtom } from "jotai";
 
 type IconComponent = React.FC<TablerIconsProps>;
 const IconMapping: Record<ImageSplitOption, IconComponent> = {
-  horizontally: IconCircleHalf,
-  vertically: IconCircleHalfVertical,
+  horizontally: IconCircleHalfVertical,
+  vertically: IconCircleHalf,
   selection: IconSelectAll,
   "entire sketch": IconFileDots,
 };

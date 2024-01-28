@@ -86,13 +86,15 @@ export default function CanvasWithContext({
           clicked: clicked,
         }}
       >
-        <canvas
-          className="rounded-md overflow-y-scroll basis-6/12"
-          ref={canvasRef}
-          onMouseMove={onMouseMove}
-          onClick={onClick}
-        />
-        {!!canvasRef.current && !!context && children}
+        <div className="rounded-md overflow-scroll basis-6/12 w-fit max-h-full">
+          <canvas
+            ref={canvasRef}
+            onMouseMove={onMouseMove}
+            onClick={onClick}
+            className="w-fit h-fit"
+          />
+          {!!canvasRef.current && !!context && children}
+        </div>
       </CanvasContextMouse.Provider>
     </CanvasContextGeneral.Provider>
   );
