@@ -1,11 +1,11 @@
-import { resizedImageAtom } from "@/lib/atoms";
+import { resizedImageLoadedAtom } from "@/lib/atoms";
 import { useAtomValue } from "jotai";
 import FileDrop from "./FileDrop";
 import FileLoader from "./FileLoader";
 
 export default function FileUploader() {
-  const [resizedImage] = useAtomValue(resizedImageAtom);
-  if (resizedImage) return null;
+  const resizedImageLoaded = useAtomValue(resizedImageLoadedAtom);
+  if (resizedImageLoaded) return null;
 
   return (
     <>

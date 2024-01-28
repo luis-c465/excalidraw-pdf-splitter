@@ -7,7 +7,7 @@ import HomeScreen from "./components/HomeScreen";
 import SketchSplitter from "./components/SketchSplitter";
 import { Toaster } from "./components/ui/sonner";
 import { ThemeProvider } from "./components/ui/theme-provider";
-import { resizedImageAtom } from "./lib/atoms";
+import { resizedImageLoadedAtom } from "./lib/atoms";
 
 export default function App() {
   return (
@@ -18,6 +18,9 @@ export default function App() {
   );
 }
 
+/**
+ * The main component to be rendered in the App
+ */
 function Main() {
   return (
     <main className="flex flex-col gap-3 items-center w-full h-[100vh]">
@@ -32,9 +35,8 @@ function Main() {
 }
 
 function DynamicSmallHeader() {
-  const [resizedImage] = useAtomValue(resizedImageAtom);
-
-  if (!resizedImage) return null;
+  const resizedImageLoaded = useAtomValue(resizedImageLoadedAtom);
+  if (!resizedImageLoaded) return null;
 
   return (
     <Header big={false}>

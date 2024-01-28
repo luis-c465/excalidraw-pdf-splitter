@@ -1,5 +1,4 @@
 import {
-  IMAGE_WIDTH,
   canvasSplitsAtom,
   imageSplitOptionsAtom,
   resizedImageData as resizedImageDataAtom,
@@ -63,7 +62,7 @@ function HorizontalCanvasSelection() {
 
     ctx.beginPath();
     ctx.moveTo(0, mouseY);
-    ctx.lineTo(IMAGE_WIDTH, mouseY);
+    ctx.lineTo(ref.width, mouseY);
     ctx.stroke();
   }, [mouseX, mouseY, imageData, canvasSplits.length]);
 
