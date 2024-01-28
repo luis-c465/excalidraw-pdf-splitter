@@ -3,7 +3,7 @@ import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [
     tsconfigPaths(),
     react({ plugins: [["@swc-jotai/react-refresh", {}]] }),
@@ -15,5 +15,5 @@ export default defineConfig({
   worker: {
     format: "es",
   },
-  base: "/excalidraw-pdf-splitter/",
-});
+  base: mode === "production" ? "/excalidraw-pdf-splitter/" : "/",
+}));
