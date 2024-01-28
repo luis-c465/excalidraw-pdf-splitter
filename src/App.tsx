@@ -23,7 +23,7 @@ export default function App() {
  */
 function Main() {
   return (
-    <main className="flex flex-col gap-3 items-center w-full h-[100vh]">
+    <main className="flex flex-col gap-3 items-center w-screen h-screen overflow-clip">
       <HomeScreen />
 
       <DynamicSmallHeader />
