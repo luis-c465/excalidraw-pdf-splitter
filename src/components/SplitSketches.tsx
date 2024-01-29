@@ -1,9 +1,5 @@
 import { Button } from "@/components/ui/button";
-import {
-  canvasSplitsAtom,
-  imageSplitOptionsAtom,
-  splitImagesBlobUrlsAtom,
-} from "@/lib/atoms";
+import { canvasSplitsAtom, splitImagesBlobUrlsAtom } from "@/lib/atoms";
 import { cn } from "@/lib/utils";
 import { IconTrash } from "@tabler/icons-react";
 import { useAtomValue, useSetAtom } from "jotai";
@@ -15,7 +11,6 @@ import { Skeleton } from "./ui/skeleton";
 const splitImagesSplitAtom = splitAtom(splitImagesBlobUrlsAtom);
 export default function SplitSketches() {
   const splitImages = useAtomValue(splitImagesSplitAtom);
-  const imageSplitOption = useAtomValue(imageSplitOptionsAtom);
 
   return (
     <div

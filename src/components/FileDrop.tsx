@@ -1,4 +1,4 @@
-import { fileAtom, sourceImageAtom } from "@/lib/atoms";
+import { fileAtom } from "@/lib/atoms";
 import { IconFileUpload } from "@tabler/icons-react";
 import clsx from "clsx/lite";
 import { useSetAtom } from "jotai";
@@ -7,8 +7,6 @@ import { useDropzone, type DropzoneOptions } from "react-dropzone";
 
 const FileDrop: React.FC = () => {
   const setFileAtom = useSetAtom(fileAtom);
-  const setSourceImage = useSetAtom(sourceImageAtom);
-
   const onDrop = useCallback<NonNullable<DropzoneOptions["onDrop"]>>(
     async (acceptedFiles) => {
       if (acceptedFiles.length != 1) return;
